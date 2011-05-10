@@ -18,6 +18,8 @@
   var path = config.path;
   var range = config.range;
   var range_len = range.length;
+  var beforeAdapt = config.beforeAdapt;
+  var afterAdapt = config.afterAdapt;
 
   // Create empty link tag:
   // <link rel="stylesheet" />
@@ -30,6 +32,10 @@
     // Really it belongs in react(),
     // but doesn't do any harm here.
     clearInterval(timer);
+
+    if(beforeAdapt) {
+      beforeAdapt();
+    }
 
     // Parse browser width.
     var width = w.innerWidth || d.documentElement.clientWidth || d.body.clientWidth || 0;
@@ -85,6 +91,10 @@
       // If so, just set the URL.
       css.href = url;
       url_old = url;
+    }
+
+    if(afterAdapt) {
+      afterAdapt();
     }
   }
 
